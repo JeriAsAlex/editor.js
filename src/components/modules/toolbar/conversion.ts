@@ -342,7 +342,7 @@ export default class ConversionToolbar extends Module<ConversionToolbarNodes> {
     /**
      * Clean exported data with replacing sanitizer config
      */
-    const cleaned: string[] = exportData.map(data => this.Editor.Sanitizer.clean(
+    const cleaned: string[] = exportData.map(data => clean(
       data,
       replacingTool.sanitizeConfig
     ));
