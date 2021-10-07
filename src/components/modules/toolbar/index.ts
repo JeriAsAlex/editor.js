@@ -238,7 +238,10 @@ export default class Toolbar extends Module<ToolbarNodes> {
    * Close the Toolbar
    */
   public close(): void {
-    this.nodes.wrapper.classList.remove(this.CSS.toolbarOpened);
+    // this.nodes.wrapper.classList.remove(this.CSS.toolbarOpened);
+    _.delay(() => {
+      this.move();
+    }, 50)();
 
     /** Close components */
     this.blockActions.hide();
