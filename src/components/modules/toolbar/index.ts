@@ -5,8 +5,6 @@ import I18n from '../../i18n';
 import { I18nInternalNS } from '../../i18n/namespace-internal';
 import Tooltip from '../../utils/tooltip';
 import { ModuleConfig } from '../../../types-internal/module-config';
-import { EditorConfig } from '../../../../types';
-import SelectionUtils from '../../selection';
 
 /**
  * HTML Elements used for Toolbar UI
@@ -199,22 +197,13 @@ export default class Toolbar extends Module<ToolbarNodes> {
       return;
     }
 
-    const { isMobile } = this.Editor.UI;
     const blockHeight = currentBlock.offsetHeight;
     let toolbarY = currentBlock.offsetTop;
 
     /**
-     * 1) On desktop — Toolbar at the top of Block, Plus/Toolbox moved the center of Block
-     * 2) On mobile — Toolbar at the bottom of Block
+     * Toolbar at the bottom of Block
      */
-    if (!isMobile) {
-      const contentOffset = Math.floor(blockHeight / 2);
-
-      this.nodes.plusButton.style.transform = `translate3d(0, calc(${contentOffset}px - 50%), 0)`;
-      this.Editor.Toolbox.nodes.toolbox.style.transform = `translate3d(0, calc(${contentOffset}px - 50%), 0)`;
-    } else {
-      toolbarY += blockHeight;
-    }
+    toolbarY += blockHeight;
 
     /**
      * Move Toolbar to the Top coordinate of Block

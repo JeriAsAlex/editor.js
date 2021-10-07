@@ -549,7 +549,6 @@ export default class UI extends Module<UINodes> {
        * Move toolbar and show plus button because new Block is empty
        */
       this.Editor.Toolbar.move();
-      this.Editor.Toolbar.plusButton.show();
     }
 
     this.Editor.BlockSelection.clearSelection(event);
@@ -644,11 +643,6 @@ export default class UI extends Module<UINodes> {
      * Move and open toolbar
      */
     this.Editor.Toolbar.open();
-
-    /**
-     * Hide the Plus Button
-     */
-    this.Editor.Toolbar.plusButton.hide();
   }
 
   /**
@@ -718,26 +712,6 @@ export default class UI extends Module<UINodes> {
        */
       Caret.setToTheLastBlock();
       Toolbar.move();
-    }
-
-    /**
-     * Show the Plus Button if:
-     * - Block is an default-block (Text)
-     * - Block is empty
-     */
-    const isDefaultBlock = this.Editor.BlockManager.currentBlock.tool.isDefault;
-
-    if (isDefaultBlock) {
-      stopPropagation();
-
-      /**
-       * Check isEmpty only for paragraphs to prevent unnecessary tree-walking on Tools with many nodes (for ex. Table)
-       */
-      const isEmptyBlock = this.Editor.BlockManager.currentBlock.isEmpty;
-
-      if (isEmptyBlock) {
-        this.Editor.Toolbar.plusButton.show();
-      }
     }
   }
 
