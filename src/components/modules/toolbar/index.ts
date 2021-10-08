@@ -199,11 +199,19 @@ export default class Toolbar extends Module<ToolbarNodes> {
 
     const blockHeight = currentBlock.offsetHeight;
     let toolbarY = currentBlock.offsetTop;
+    const { isMobile } = this.Editor.UI;
 
     /**
      * Toolbar at the bottom of Block
      */
-    toolbarY += blockHeight;
+    if (!isMobile) {
+      const contentOffset = Math.floor(blockHeight);
+
+      this.nodes.plusButton.style.transform = `translate3d(0, calc(${contentOffset}px - 50%), 0)`;
+      this.Editor.Toolbox.nodes.toolbox.style.transform = `translate3d(0, calc(${contentOffset}px - 50%), 0)`;
+    } else {
+      toolbarY += blockHeight;
+    }
 
     /**
      * Move Toolbar to the Top coordinate of Block
