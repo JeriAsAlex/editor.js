@@ -188,6 +188,13 @@ export default class Toolbar extends Module<ToolbarNodes> {
       this.Editor.BlockSettings.close();
     }
 
+    /**
+     * If no one Block selected as a Current
+     */
+    if (!this.Editor.BlockManager.currentBlock) {
+      return;
+    }
+
     const currentBlock = this.Editor.BlockManager.currentBlock.holder;
 
     /**
