@@ -206,7 +206,7 @@ export default class Block extends EventsDispatcher<BlockEvents> {
     let shouldFireUpdate = false;
 
     if (mutations instanceof InputEvent) {
-       shouldFireUpdate = true;
+      shouldFireUpdate = true;
     } else {
       shouldFireUpdate = !mutations.some(({ addedNodes = [], removedNodes }) => {
         return [...Array.from(addedNodes), ...Array.from(removedNodes)]
@@ -707,6 +707,14 @@ export default class Block extends EventsDispatcher<BlockEvents> {
   public willUnselect(): void {
     this.mutationObserver.disconnect();
     this.removeInputEvents();
+  }
+
+  /**
+   * Allows to say Editor that Block was changed. Used to manually trigger Editor's 'onChange' callback
+   * Can be useful for block changes invisible for editor core.
+   */
+  public dispatchChange(): void{
+    this.didMutated();
   }
 
   /**
