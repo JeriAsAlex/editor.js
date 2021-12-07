@@ -256,17 +256,22 @@ export default class Toolbar extends Module<ToolbarNodes> {
 
     const targetBlockHolder = block.holder;
     const { isMobile } = this.Editor.UI;
+    const renderedContent = block.pluginsContent;
+    const renderedContentStyle = window.getComputedStyle(renderedContent);
+    const blockRenderedElementPaddingTop = parseInt(renderedContentStyle.paddingTop, 10);
     const blockHeight = targetBlockHolder.offsetHeight;
 
     let toolbarY;
 
     /**
-     * On mobile ad Desktop — Toolbar at the bottom of Block
+     * On mobile — Toolbar at the bottom of Block
+     * On Desktop — Toolbar should be moved to the first line of block text
+     *              To do that, we compute the block offset and the padding-top of the plugin content
      */
     if (isMobile) {
       toolbarY = targetBlockHolder.offsetTop + blockHeight;
     } else {
-      toolbarY = targetBlockHolder.offsetTop + blockHeight;
+      toolbarY = targetBlockHolder.offsetTop + blockRenderedElementPaddingTop;
     }
 
     /**
